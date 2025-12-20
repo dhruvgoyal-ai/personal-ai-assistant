@@ -2,8 +2,9 @@ from fastapi import FastAPI, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 import uuid
 
-from ingest import ingest_pdf
-from rag import get_answer
+from backend.ingest import ingest_pdf
+from backend.rag import get_answer
+
 
 app = FastAPI()
 

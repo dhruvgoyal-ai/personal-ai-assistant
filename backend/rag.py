@@ -1,4 +1,4 @@
-from ingest import get_vectorstore
+from backend.ingest import get_vectorstore
 from langchain_groq import ChatGroq
 from langchain.schema import HumanMessage, SystemMessage
 import os
