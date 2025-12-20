@@ -38,7 +38,7 @@ if uploaded_file:
 
             res = response.json()
 
-            # 🔥 SAFE CHECK (NO CRASH)
+            
             if "session_id" in res and "error" not in res:
                 st.session_state.session_id = res["session_id"]
                 st.success("✅ PDF uploaded and added to knowledge base!")

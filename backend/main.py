@@ -24,7 +24,7 @@ async def upload_pdf(
     file: UploadFile,
     session_id: str = Form(None)
 ):
-    # 🔥 ALWAYS have a session_id
+    
     if not session_id:
         session_id = str(uuid.uuid4())
 
@@ -44,7 +44,7 @@ async def upload_pdf(
     except Exception as e:
         print("UPLOAD ERROR:", e)
         return {
-            "session_id": session_id,   # 🔥 IMPORTANT
+            "session_id": session_id,   
             "error": str(e)
         }
 

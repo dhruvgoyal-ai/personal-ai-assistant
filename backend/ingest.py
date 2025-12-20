@@ -31,14 +31,13 @@ def ingest_pdf(session_id, pdf_path):
 
     chunks = splitter.split_documents(docs)
 
-    # 🔥 RELAXED FILTER (FIX)
+    
     clean_chunks = [
         c for c in chunks
-        if len(c.page_content.strip()) > 30   # 🔥 was too strict earlier
+        if len(c.page_content.strip()) > 30   
         and not is_promotional(c.page_content)
     ]
 
-    # 🚨 If still empty, fallback (important)
     if not clean_chunks:
         clean_chunks = [
             c for c in chunks
