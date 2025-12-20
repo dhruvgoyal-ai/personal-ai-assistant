@@ -1,12 +1,11 @@
 fastapi
 uvicorn
+streamlit
 langchain
 langchain-community
+langchain-groq
 faiss-cpu
 sentence-transformers
 pypdf
-streamlit
-python-dotenv
-ollama
+python-multipart
 requests
-

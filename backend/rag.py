@@ -1,47 +1,49 @@
 from ingest import get_vectorstore
-from langchain_community.llms import Ollama
+from langchain_groq import ChatGroq
+from langchain.schema import HumanMessage, SystemMessage
+import os
 
-llm = Ollama(model="phi3:mini")
+llm = ChatGroq(
+    groq_api_key=os.getenv("GROQ_API_KEY"),
+    model_name="llama3-8b-8192",
+    temperature=0
+)
 
-def get_answer(session_id, question):
+def get_answer(session_id: str, question: str):
     if not session_id:
         return "❌ Please upload a PDF first."
 
     vectorstore = get_vectorstore(session_id)
 
-    # ❌ No vectorstore → no PDF
     if vectorstore is None:
         return "❌ Please upload a PDF first."
 
-    
-    docs = vectorstore.similarity_search(question, k=15)
+    docs = vectorstore.similarity_search(question, k=4)
 
     if not docs:
         return "❌ Answer not found in the uploaded PDF."
 
-    
-    filtered_docs = [
-        d for d in docs
-        if len(d.page_content.strip()) > 100
-    ]
+    context = "\n\n".join(doc.page_content for doc in docs)
 
-    if not filtered_docs:
-        return "❌ Answer not found in the uploaded PDF."
-
-    context = "\n".join(d.page_content for d in filtered_docs)
-
-    prompt = f"""
-You must answer ONLY using the PDF content below.
-If the answer is not present in the PDF, say:
-"Answer not found in the uploaded PDF."
-
+    messages = [
+        SystemMessage(
+            content=(
+                "You are a PDF-based assistant. "
+                "Answer ONLY from the given PDF content. "
+                "If answer is not present, say: "
+                "'Answer not found in the uploaded PDF.'"
+            )
+        ),
+        HumanMessage(
+            content=f"""
 PDF Content:
 {context}
 
 Question:
 {question}
 """
+        )
+    ]
 
-    # ✅ CORRECT way to call Ollama
-    response = llm.invoke(prompt)
-    return response
+    response = llm(messages)
+    return response.content
