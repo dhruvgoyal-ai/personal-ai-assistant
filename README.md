@@ -1,45 +1,31 @@
-# 🤖 Personal AI Knowledge Assistant
+# Personal AI Assistant
 
-A personal AI chatbot that answers questions from your own documents using RAG.
+## Overview
+Personal AI Assistant is a modular AI-powered assistant built using Python that can
+answer user queries and is designed to be easily extended with new tools and features.
 
-## 🚀 Features
-- Document-based question answering
-- Fast vector search using FAISS
-- Local LLM using Ollama (Phi-3)
-- Simple Streamlit UI
-- FastAPI backend
+## Features
+- Natural language query handling
+- Modular backend architecture
+- Easy to extend with new capabilities
+- Clean and maintainable codebase
 
-## 🛠 Tech Stack
-- Python 3.11
+## Tech Stack
+- Python
 - FastAPI
-- LangChain
-- FAISS
-- Streamlit
-- Ollama (Phi-3)
+- OpenRouter API
 
-## 📂 Project Structure
-backend/ - API & RAG logic
-frontend/ - Streamlit UI
-data/ - Upload PDFs
+## Architecture
+User Input → API Layer → Assistant Core → LLM / Tools → Response
 
+## Use Cases
+- General question answering
+- Personal knowledge assistance
+- Base framework for domain-specific AI assistants
 
-## ▶️ How to Run
-
-### 1. Create virtual environment
+## How to Run
 ```bash
-python -m venv venv
-
-2. Activate venv
-.\venv\Scripts\activate
-
-3. Install dependencies
+git clone https://github.com/dhruvgoyal-ai/personal-ai-assistant
+cd personal-ai-assistant
 pip install -r requirements.txt
-
-4. Create vector database
-python backend/ingest.py
-
-5. Run backend
-uvicorn backend.main:app --reload
-
-6. Run frontend
-streamlit run frontend/app.py
+python main.py
