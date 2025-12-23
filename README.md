@@ -21,7 +21,7 @@ User Input → API Layer → Assistant Core → LLM / Tools → Response
 ## Use Cases
 - General question answering
 - Personal knowledge assistance
-- Base framework for domain-specific AI assistants
+- Base framework for domain-specific AI assistants.
 
 ## How to Run
 ```bash
